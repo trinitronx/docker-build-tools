@@ -1,4 +1,7 @@
 #!/bin/bash
+## docker-build script for build-tools
+##  Copyright (C) 2014  James Cuzella
+##
 DOCKERFILE_DIR=docker-platforms
 
 for d in $(ls -1 $DOCKERFILE_DIR); do
