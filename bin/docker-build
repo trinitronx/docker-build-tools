@@ -1,0 +1,6 @@
+#!/bin/bash
+DOCKERFILE_DIR=docker-platforms
+
+for d in $(ls -1 $DOCKERFILE_DIR); do
+  docker build --tag="trinitronx/build-tools:$d" $DOCKERFILE_DIR/$d
+done
