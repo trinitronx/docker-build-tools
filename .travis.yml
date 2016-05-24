@@ -21,7 +21,7 @@ install:
 
 script:
   - export COMMIT=${TRAVIS_COMMIT::8}
-  - export REPO=trinitronx/docker-build-tools
+  - export REPO=trinitronx/build-tools
   - docklint -q docker-platforms/${IMAGE_BUILD_PLATFORM}/Dockerfile
   - docker build -t ${REPO}:${IMAGE_BUILD_PLATFORM} docker-platforms/${IMAGE_BUILD_PLATFORM}/
   - docker run --privileged -d -ti -e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup -v $PWD/spec:/spec  ${REPO}:${IMAGE_BUILD_PLATFORM}  /usr/sbin/init
