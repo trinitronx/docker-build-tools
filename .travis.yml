@@ -31,7 +31,8 @@ script:
   - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'git clone https://github.com/sstephenson/bats.git && cd bats && ./install.sh /usr/local'
   - >
     export BATS_VERSION=$(docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'bats --version')
-  - echo "bats version:  ${BATS_VERSION}"
+  - >
+    echo "bats version:  ${BATS_VERSION}"
 # Run Tests
   - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'bats /spec/bats/'
   - docker ps -a
@@ -39,8 +40,10 @@ script:
   - docker rm -v $DOCKER_CONTAINER_ID
 after_success:
   - export GIT_COMMIT=$(git rev-parse HEAD)
-  - echo "git SHA: $GIT_COMMIT"
-  - echo "TRAVIS COMMIT: $COMMIT"
+  - >
+    echo "git SHA: $GIT_COMMIT"
+  - >
+    echo "TRAVIS COMMIT: $COMMIT"
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 #  - if [ "$TRAVIS_BRANCH" == "master" -a "$IMAGE_BUILD_PLATFORM" == "ubuntu-1404" ]; then docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:latest; fi
 #  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:travis-${TRAVIS_BUILD_NUMBER}
