@@ -21,6 +21,10 @@
   [ -x "$(which envsubst)" ]
 }
 
+@test "make executable exists" {
+  [ -x "$(which make)" ]
+}
+
 @test "libtool executable exists" {
   [ -x "$(which libtool)" ]
 }
