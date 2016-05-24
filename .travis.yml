@@ -46,5 +46,5 @@ after_success:
 #  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:travis-${TRAVIS_BUILD_NUMBER}
 #  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:${IMAGE_BUILD_PLATFORM}-${ANSIBLE_VERSION}
 #  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} ${REPO}:${IMAGE_BUILD_PLATFORM}-${GIT_COMMIT::7}
-#  - docker push $REPO
+#  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then docker push $REPO ; fi
   - "[ -e \"~/.docker/config.json\" ] && shred -n 30 -u -z ~/.docker/config.json"
