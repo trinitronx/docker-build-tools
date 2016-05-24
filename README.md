@@ -7,8 +7,6 @@ docker-build-tools
 
 Basic build tools docker files
 
-To build the images locally run: `./bin/docker-build`
-
 Image Size
 ==========
 
@@ -16,6 +14,24 @@ Image Size
  - `trinitronx/build-tools:ubuntu-1204`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:ubuntu-1204.svg)](https://imagelayers.io/?images=trinitronx/build-tools:ubuntu-1204 'Get your own badge on imagelayers.io')
  - `trinitronx/build-tools:centos-7`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:centos-7.svg)](https://imagelayers.io/?images=trinitronx/build-tools:centos-7 'Get your own badge on imagelayers.io')
  - `trinitronx/build-tools:centos-6`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:centos-6.svg)](https://imagelayers.io/?images=trinitronx/build-tools:centos-6 'Get your own badge on imagelayers.io')
+
+Building
+========
+
+To build the images locally run:
+
+    make build
+    # OR:
+    ./bin/docker-build
+
+Testing
+=======
+
+This repo contains basic `bats` tests to check the built images for the binaries installed.
+
+To run the tests:
+
+    make test
 
 License
 =======
