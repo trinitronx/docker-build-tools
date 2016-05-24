@@ -1,0 +1,54 @@
+sudo: required
+dist: trusty
+group: edge
+
+services:
+  - docker
+
+matrix:
+  fast_finish: true
+
+env:
+  - IMAGE_BUILD_PLATFORM=ubuntu-1404
+  - IMAGE_BUILD_PLATFORM=ubuntu-1204
+  - IMAGE_BUILD_PLATFORM=centos-7
+  - IMAGE_BUILD_PLATFORM=centos-6
+
+install:
+  - npm install -g validate-dockerfile
+  - git clone https://github.com/sstephenson/bats.git && cd bats && ./install.sh /usr/local
+
+script:
+  - export COMMIT=${TRAVIS_COMMIT::8}
+  - export REPO=trinitronx/docker-build-tools
+  - docklint docker-platforms/${IMAGE_BUILD_PLATFORM}/Dockerfile
+  - docker build -t ${REPO}:${IMAGE_BUILD_PLATFORM} docker-platforms/${IMAGE_BUILD_PLATFORM}/
+  - docker run -ti -e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup -v $PWD/spec:/spec  ${REPO}:${IMAGE_BUILD_PLATFORM}  /usr/sbin/init
+  - DOCKER_CONTAINER_ID=$(docker ps | grep ${IMAGE_BUILD_PLATFORM} | awk '{print $1}')
+  - docker logs $DOCKER_CONTAINER_ID
+# Prepare test environment
+  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'git clone https://github.com/sstephenson/bats.git && cd bats && ./install.sh /usr/local'
+  - >
+    export BATS_VERSION=$(docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'bats --version')
+  - echo "bats --version:  ${BATS_VERSION}"
+# Run Tests
+  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'bats /spec/bats/'
+  - >
+    docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'echo -ne "------\nEND TESTS\n------\nSystemD Units:\n------\n";
+       systemctl --no-pager --all --full status ;
+       echo -ne "------\nJournalD Logs:\n------\n" ;
+       sudo journalctl --catalog --all --full --no-pager'
+  - docker ps -a
+  - docker stop $DOCKER_CONTAINER_ID
+  - docker rm -v $DOCKER_CONTAINER_ID
+after_success:
+  - export GIT_COMMIT=$(git rev-parse HEAD)
+  - echo "git SHA: $GIT_COMMIT"
+  - echo "TRAVIS COMMIT: $COMMIT"
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+#  - if [ "$TRAVIS_BRANCH" == "master" -a "$IMAGE_BUILD_PLATFORM" == "ubuntu-1404" ]; then docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:latest; fi
+#  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:travis-${TRAVIS_BUILD_NUMBER}
+#  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:${IMAGE_BUILD_PLATFORM}-${ANSIBLE_VERSION}
+#  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} ${REPO}:${IMAGE_BUILD_PLATFORM}-${GIT_COMMIT::7}
+#  - docker push $REPO
+  - "[ -e \"~/.docker/config.json\" ] && shred -n 30 -u -z ~/.docker/config.json"
