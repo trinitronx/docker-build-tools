@@ -46,7 +46,6 @@ after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 #  - if [ "$TRAVIS_BRANCH" == "master" -a "$IMAGE_BUILD_PLATFORM" == "ubuntu-1404" ]; then docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:latest; fi
   - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:travis-${TRAVIS_BUILD_NUMBER}
-  - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:${IMAGE_BUILD_PLATFORM}-${ANSIBLE_VERSION}
   - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} ${REPO}:${IMAGE_BUILD_PLATFORM}-${GIT_COMMIT::7}
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then docker push $REPO ; fi
   - "[ -e \"~/.docker/config.json\" ] && shred -n 30 -u -z ~/.docker/config.json"
