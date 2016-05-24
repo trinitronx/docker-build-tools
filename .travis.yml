@@ -24,7 +24,7 @@ script:
   - export REPO=trinitronx/docker-build-tools
   - docklint -q docker-platforms/${IMAGE_BUILD_PLATFORM}/Dockerfile
   - docker build -t ${REPO}:${IMAGE_BUILD_PLATFORM} docker-platforms/${IMAGE_BUILD_PLATFORM}/
-  - docker run -ti -e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup -v $PWD/spec:/spec  ${REPO}:${IMAGE_BUILD_PLATFORM}  /usr/sbin/init
+  - docker run --privileged -d -ti -e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup -v $PWD/spec:/spec  ${REPO}:${IMAGE_BUILD_PLATFORM}  /usr/sbin/init
   - DOCKER_CONTAINER_ID=$(docker ps | grep ${IMAGE_BUILD_PLATFORM} | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
 # Prepare test environment
