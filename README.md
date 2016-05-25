@@ -5,7 +5,21 @@ docker-build-tools
 [![Docker Stars](https://img.shields.io/docker/stars/trinitronx/build-tools.svg)](https://hub.docker.com/r/trinitronx/build-tools)
 [![Gittip](http://img.shields.io/gittip/trinitronx.svg)](https://www.gittip.com/trinitronx)
 
-Basic build tools docker files
+These are basic docker images starting from official OS base images, and installing `build-essential` packages. Intended for use as base images in further `FROM` directives.
+
+Supported platforms:
+--------------------
+
+ - ubuntu-1404
+ - ubuntu-1204
+ - centos-7
+ - centos-6
+
+Packages Installed
+------------------
+
+ - CentOS: `yum groupinstall -y "Development Tools"; yum install -y libtool autoconf automake wget gettext which`
+ - Ubuntu: `apt-get install -y build-essential libtool automake pkg-config git wget gettext-base`
 
 Image Size
 ==========
@@ -18,7 +32,7 @@ Image Size
 Building
 ========
 
-To build the images locally run:
+To build the images locally, checkout [this repo][1] and run:
 
     make build
     # OR:
@@ -27,7 +41,7 @@ To build the images locally run:
 Testing
 =======
 
-This repo contains basic `bats` tests to check the built images for the binaries installed.
+[This repo][1] contains basic `bats` tests to check the built images for the binaries installed.
 
 To run the tests:
 
@@ -44,3 +58,5 @@ Copyright
 =========
 
 Copyright James Cuzella 2014-2016 (@trinitronx)
+
+[1]: https://github.com/trinitronx/docker-build-tools
