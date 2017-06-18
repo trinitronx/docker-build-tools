@@ -11,6 +11,7 @@ matrix:
   fast_finish: true
 
 env:
+  - IMAGE_BUILD_PLATFORM=ubuntu-1604 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=ubuntu-1404 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=ubuntu-1204 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=centos-7    INIT=/usr/sbin/init
