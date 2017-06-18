@@ -35,7 +35,7 @@ script:
   - >
     echo "bats version:  ${BATS_VERSION}"
 # Run Tests
-  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'bats /spec/bats/'
+  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'export TERM=dumb; bats /spec/bats/'
   - docker ps -a
   - docker stop $DOCKER_CONTAINER_ID
   - docker rm -v $DOCKER_CONTAINER_ID
