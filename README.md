@@ -14,6 +14,7 @@ Supported platforms:
  - ubuntu-1204
  - centos-7
  - centos-6
+ - alpine-3.6
 
 Packages Installed
 ------------------
@@ -24,10 +25,12 @@ Packages Installed
 Image Size
 ==========
 
+
  - `trinitronx/build-tools:ubuntu-1404`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:ubuntu-1404.svg)](https://imagelayers.io/?images=trinitronx/build-tools:ubuntu-1404 'Get your own badge on imagelayers.io')
  - `trinitronx/build-tools:ubuntu-1204`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:ubuntu-1204.svg)](https://imagelayers.io/?images=trinitronx/build-tools:ubuntu-1204 'Get your own badge on imagelayers.io')
  - `trinitronx/build-tools:centos-7`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:centos-7.svg)](https://imagelayers.io/?images=trinitronx/build-tools:centos-7 'Get your own badge on imagelayers.io')
  - `trinitronx/build-tools:centos-6`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:centos-6.svg)](https://imagelayers.io/?images=trinitronx/build-tools:centos-6 'Get your own badge on imagelayers.io')
+ - `trinitronx/build-tools:alpine-3.6`: [![Image Layers](https://badge.imagelayers.io/trinitronx/build-tools:alpine-3.6.svg)](https://imagelayers.io/?images=trinitronx/build-tools:alpine-3.6 'Get your own badge on imagelayers.io')
 
 Building
 ========
