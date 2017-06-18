@@ -11,6 +11,7 @@ matrix:
   fast_finish: true
 
 env:
+  - IMAGE_BUILD_PLATFORM=ubuntu-1604 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=ubuntu-1404 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=ubuntu-1204 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=centos-7    INIT=/usr/sbin/init
@@ -34,7 +35,7 @@ script:
   - >
     echo "bats version:  ${BATS_VERSION}"
 # Run Tests
-  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'bats /spec/bats/'
+  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'export TERM=dumb; bats /spec/bats/'
   - docker ps -a
   - docker stop $DOCKER_CONTAINER_ID
   - docker rm -v $DOCKER_CONTAINER_ID
@@ -51,6 +52,14 @@ after_success:
   - env
   - >
     echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
-  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then echo WILL push $REPO ; else echo WILL NOT PUSH $REPO; fi
-  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then docker push $REPO ; fi
+  - >
+    if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_PULL_REQUEST_BRANCH}" == "" && "$TRAVIS_BRANCH" == "master" ]]; then 
+      echo WILL push $REPO ;
+    else
+      echo WILL NOT PUSH $REPO;
+    fi
+  - >
+    if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_PULL_REQUEST_BRANCH}" == "" && "$TRAVIS_BRANCH" == "master" ]]; then
+      docker push $REPO ;
+    fi
   - "[ -e \"~/.docker/config.json\" ] && shred -n 30 -u -z ~/.docker/config.json"
