@@ -15,6 +15,7 @@ env:
   - IMAGE_BUILD_PLATFORM=ubuntu-1204 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=centos-7    INIT=/usr/sbin/init
   - IMAGE_BUILD_PLATFORM=centos-6    INIT=/sbin/init
+  - IMAGE_BUILD_PLATFORM=alpine-3.6  INIT=/sbin/init
 
 install:
   - npm install -g validate-dockerfile
