@@ -49,7 +49,8 @@ after_success:
   - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:travis-${TRAVIS_BUILD_NUMBER}
   - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} ${REPO}:${IMAGE_BUILD_PLATFORM}-${GIT_COMMIT::7}
   - env
-  - echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
+  - >
+    echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then echo WILL push $REPO ; else echo WILL NOT PUSH $REPO; fi
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then docker push $REPO ; fi
   - "[ -e \"~/.docker/config.json\" ] && shred -n 30 -u -z ~/.docker/config.json"
