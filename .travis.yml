@@ -15,6 +15,7 @@ env:
   - IMAGE_BUILD_PLATFORM=ubuntu-1204 INIT=/sbin/init
   - IMAGE_BUILD_PLATFORM=centos-7    INIT=/usr/sbin/init
   - IMAGE_BUILD_PLATFORM=centos-6    INIT=/sbin/init
+  - IMAGE_BUILD_PLATFORM=alpine-3.6  INIT=/sbin/init
 
 install:
   - npm install -g validate-dockerfile
@@ -47,5 +48,9 @@ after_success:
 #  - if [ "$TRAVIS_BRANCH" == "master" -a "$IMAGE_BUILD_PLATFORM" == "ubuntu-1404" ]; then docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:latest; fi
   - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} $REPO:travis-${TRAVIS_BUILD_NUMBER}
   - docker tag ${REPO}:${IMAGE_BUILD_PLATFORM} ${REPO}:${IMAGE_BUILD_PLATFORM}-${GIT_COMMIT::7}
+  - env
+  - >
+    echo "TRAVIS_PULL_REQUEST: ${TRAVIS_PULL_REQUEST}"
+  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then echo WILL push $REPO ; else echo WILL NOT PUSH $REPO; fi
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then docker push $REPO ; fi
   - "[ -e \"~/.docker/config.json\" ] && shred -n 30 -u -z ~/.docker/config.json"
