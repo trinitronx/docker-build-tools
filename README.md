@@ -64,6 +64,7 @@ See LICENSE.md for full text
 Copyright
 =========
 
-Copyright James Cuzella 2014-2016 (@trinitronx)
+Copyright James Cuzella 2014-2017 ([@trinitronx][trinitronx-keybase])
 
 [1]: https://github.com/trinitronx/docker-build-tools
+[trinitronx-keybase]: https://gist.github.com/trinitronx/aee110cbdf55e67185dc44272784e694
