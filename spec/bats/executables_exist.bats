@@ -40,3 +40,7 @@
 @test "automake executable exists" {
   [ -x "$(which automake)" ]
 }
+
+@test "file executable exists" {
+  [ -x "$(which file)" ]
+}
