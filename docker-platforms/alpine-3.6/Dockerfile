@@ -5,11 +5,13 @@ MAINTAINER James Cuzella @trinitronx https://keybase.io/trinitronx/
 RUN set -x                  && \
     apk --update upgrade    && \
     apk add ca-certificates && \
+    apk add wget            && \
     apk add build-base      && \
-    apk add git bash        && \
+    apk add git bash file   && \
     apk add autoconf        && \
     apk add automake        && \
     apk add libtool gettext && \
+    update-ca-certificates  && \
     rm -rf /var/cache/apk/*
 
 ## Enable running /sbin/init as pid 1 for this container
