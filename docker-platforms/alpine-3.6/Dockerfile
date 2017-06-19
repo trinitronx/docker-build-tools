@@ -7,7 +7,7 @@ RUN set -x                  && \
     apk add ca-certificates && \
     apk add wget            && \
     apk add build-base      && \
-    apk add git bash        && \
+    apk add git bash file   && \
     apk add autoconf        && \
     apk add automake        && \
     apk add libtool gettext && \
