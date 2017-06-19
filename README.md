@@ -23,7 +23,7 @@ Packages Installed
  - CentOS: `yum groupinstall -y "Development Tools"; yum install -y libtool autoconf automake wget gettext which`
  - Ubuntu: `apt-get install -y build-essential libtool automake pkg-config git wget gettext-base`
  - Ubuntu 16.04: `apt-get install -y build-essential libtool libtool-bin automake pkg-config git wget gettext-base`
- - Alpine: `apk add ca-certificates build-base git bash autoconf automake libtool gettext openrc`
+ - Alpine: `apk add ca-certificates wget build-base git bash autoconf automake libtool gettext openrc && update-ca-certificates`
 
 Image Size
 ==========
